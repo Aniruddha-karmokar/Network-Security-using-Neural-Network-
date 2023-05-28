@@ -1,0 +1,175 @@
+##Main Program
+def replace_spaces(lst):
+    for i in range(len(lst)):
+        if lst[i] == ' ':
+            lst[i] = '^'
+    return lst
+strarr = input("Enter the string: ")
+arr = [i for i in strarr]
+arr=replace_spaces(arr)
+count_1=0
+count_2=0
+ascii = [ord(i) for i in arr]
+##print(ascii)
+for i in range(len(ascii)):
+    if(i%2==0):
+        count_1+=1
+    else:
+        count_2+=1
+even_len=count_1
+odd_len=count_2
+##print("The number of even indexes are: ",even_len)
+##print("The number of odd indexes are: ",odd_len)
+for i in range(len(ascii)):
+    if i%2 == 0:
+        ascii[i] += even_len
+    else:
+        ascii[i] += odd_len
+##print(ascii)
+mod_string = ""
+for i in ascii:
+    mod_string += chr(i) 
+##print(arr)
+##print(mod_string)
+mod_arr=[i for i in mod_string]
+##print(mod_arr)
+result_arr = []
+for i in range(len(strarr)):
+    result_arr.append(strarr[i])
+    result_arr.append(mod_arr[i])
+
+##print(result_arr)
+lock=[ord(i) for i in result_arr]
+##print(lock) ## locked with key
+node1=[]
+node2=[]
+for i in range(len(lock)):
+    if(i%2==0):
+        node1.append(lock[i]+2)## if array index is even go to node1 with an addition of 2
+        
+    else:
+        node2.append(lock[i]-2) ##if array index is odd go to node2 with an substraction of 2
+print("node 1 is = ",node1)
+print("node 2 is = ",node2)
+print("Modified node 1 and node 2 are as follows")
+node1=[chr(i) for i in node1]
+node2=[chr(i) for i in node2]
+print(node1)
+print(node2)
+## If we get consonant reverse it or rather replace it 
+def isVowel(c):
+    return c in ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U']
+
+def reverseCons(str):
+    # Start two indexes from two corners
+    # and move toward each other
+    i = 0
+    j = len(str)-1
+    str1 = list(str)
+    while i < j:
+        if isVowel(str1[i]):
+            i += 1
+            continue
+        if isVowel(str1[j]):
+            j -= 1
+            continue
+
+        # swapping
+        t = str1[i]
+        str1[i] = str1[j]
+        str1[j] = t
+        i += 1
+        j -= 1
+    str2 = ''.join(str1)
+    return str2
+node3=list(reverseCons(node1))
+print("node 3 is",node3)
+##from node2 if we get vowel then reverse it
+def isVowel(c):
+    return c in ['a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U']
+
+def isConsonant(c):
+    return c.isalpha() and not isVowel(c)
+
+def reverseVow(str):
+    # Start two indexes from two corners
+    # and move toward each other
+    i = 0
+    j = len(str)-1
+    str1 = list(str)
+    while i < j:
+        if isConsonant(str1[i]):
+            i += 1
+            continue
+        if isConsonant(str1[j]):
+            j -= 1
+            continue
+
+        # swapping
+        t = str1[i]
+        str1[i] = str1[j]
+        str1[j] = t
+        i += 1
+        j -= 1
+    str2 = ''.join(str1)
+    return str2
+node4=list(reverseVow(node2))
+print("node4 is =",node4)
+cipher=[]
+for i in range(len(node3)):
+    cipher.append(node3[i])
+    cipher.append(node4[i])
+def listToString(s):
+ 
+    # initialize an empty string
+    str1 = ""
+ 
+    # traverse in the string
+    for ele in s:
+        str1 += ele
+ 
+    # return string
+    return str1
+cipher1=listToString(cipher)
+print()
+print()
+print("Final cypher text is: ",cipher1)
+print()
+print()
+##decryption
+node5=[]
+node6=[]
+for i in range(len(cipher)):
+    if(i%2==0):
+        node5.append(cipher[i])
+    else:
+        node6.append(cipher[i])
+print("Dnode 1 is= ",node5)
+print("Dnode 2 is= ",node6)
+node7=list(reverseCons(node5))
+print("Dnode3 is: ",node7)
+node8=list(reverseVow(node6))
+print("Dnode4 is: ",node8)
+node7=[ord(i) for i in node7]
+##print(node7)
+node8=[ord(i) for i in node8]
+##print(node8)
+unlock=[]
+for i in range(len(node7)):
+    unlock.append(node7[i]-2)
+    unlock.append(node8[i]+2)
+##print(unlock)
+unlock=[chr(i) for i in unlock]
+print("The previous locked with key text after decryption is: ",unlock)
+main_text=[]
+key1=[]
+for i in range(len(unlock)):
+    if(i%2==0):
+        main_text.append(unlock[i])
+##print(main_text)
+    else:
+        key1.append(unlock[i])
+text=listToString(main_text)
+print("Your main text is = ",text)
+key2=listToString(key1)
+print("Key is: ",key2)
